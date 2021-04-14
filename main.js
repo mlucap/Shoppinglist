@@ -19,7 +19,7 @@ app.on('ready', () => {
 
 	mainWindow.loadURL(
 		url.format({
-			pathname: path.join(__dirname, 'src/mainWindow.html'),
+			pathname: path.join(__dirname, 'html/mainWindow.html'),
 			protocol: 'file',
 			slashes: true,
 		})
@@ -50,7 +50,7 @@ function createAddWindow() {
 
 	addWindow.loadURL(
 		url.format({
-			pathname: path.join(__dirname, 'src/addWindow.html'),
+			pathname: path.join(__dirname, 'html/addWindow.html'),
 			protocol: 'file',
 			slashes: true,
 		})
@@ -74,12 +74,14 @@ const menuTemplate = [
 		submenu: [
 			{
 				label: 'Add Item',
+				accelerator: process.platform == 'darwin' ? 'Command+N' : 'Ctrl+N',
 				click() {
 					createAddWindow();
 				},
 			},
 			{
 				label: 'Clear Items',
+				accelerator: process.platform == 'darwin' ? 'Command+W' : 'Ctrl+W',
 				click() {
 					mainWindow.webContents.send('item:clear');
 				},
