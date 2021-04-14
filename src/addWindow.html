@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Add Shopping List Item</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
+        />
+    </head>
+    <body>
+        <form>
+            <div>
+                <div class="field-label is-normal">
+                <label class="label">Enter Item</label>
+                </div>
+                <input class="input is-hovered" type="text" id="item" autofocus>
+            </div>
+            <button class="button is-primary is-small" type="submit">add Item</button>
+        </form>
+
+        <script>
+            const electron = require('electron');
+            const {ipcRenderer} = electron; 
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', submitForm);
+
+            function submitForm(e){
+                e.preventDefault();
+                const item = document.querySelector('#item').value;
+                ipcRenderer.send('item:add', item);
+            }
+        </script>
+    </body>
+</html>

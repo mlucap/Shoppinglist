@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ShoppingList</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
+        />
+    </head>
+    <body>
+        <h1 style="padding-left: 15px;" class="title is-2">ShoppingList</h1>
+        <ol style="padding-left: 30px;" type="1"></ol>
+
+        <script>
+            const electron = require('electron');
+            const { ipcRenderer } = electron;
+            const ul = document.querySelector('ol');
+
+            ipcRenderer.on('item:add', (e, item) => {
+               const li = document.createElement('li');
+               const itemText = document.createTextNode(item);
+               li.appendChild(itemText);
+               ul.appendChild(li); 
+            });
+
+            ipcRenderer.on('item:clear', () => {
+                ul.innerHTML = '';
+            });
+
+            // Remove single item
+            ul.addEventListener('click', removeItem);
+
+            function removeItem(e) {
+                e.target.remove();
+            }
+        </script>
+    </body>
+</html>
